@@ -7,6 +7,9 @@ import (
 const prefixInEnglish = "Hello"
 
 func Hello(name string) string {
+	if "" == name { 
+		return prefixInEnglish
+	}
 	return prefixInEnglish + " " + name
 }
 

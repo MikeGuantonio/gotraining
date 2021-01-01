@@ -16,8 +16,10 @@ func Hello(name string, language string) string {
 		return prefixInEnglish
 	}
 
-	prefix := prefixInEnglish
+	return greetingPrefix(language) + " " + name
+}
 
+func greetingPrefix(language string) (prefix string) {
 	switch language {
 	case spanish:
 		prefix = prefixInSpanish
@@ -26,8 +28,7 @@ func Hello(name string, language string) string {
 	default:
 		prefix = prefixInEnglish
 	}
-
-	return prefix + " " + name
+	return prefix
 }
 
 func main() {

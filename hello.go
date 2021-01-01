@@ -5,14 +5,27 @@ import (
 )
 
 const prefixInEnglish = "Hello"
+const prefixInSpanish = "Hola"
 
-func Hello(name string) string {
-	if "" == name { 
+const spanish = "Spanish"
+
+func Hello(name string, language string) string {
+	if "" == name {
 		return prefixInEnglish
 	}
-	return prefixInEnglish + " " + name
+
+	prefix := prefixInEnglish
+
+	switch language {
+	case spanish:
+		prefix = prefixInSpanish
+	default:
+		prefix = prefixInEnglish
+	}
+
+	return prefix + " " + name
 }
 
 func main() {
-	fmt.Println(Hello("Nick"))
+	fmt.Println(Hello("Nick", "English"))
 }

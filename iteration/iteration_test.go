@@ -20,6 +20,12 @@ func TestIteration(t *testing.T) {
 		expected := ""
 		assertSame(t, expected, repeated)
 	})
+
+	t.Run("Account for values less than zero", func(t *testing.T) {
+		repeated := Repeat("c", -1)
+		expected := ""
+		assertSame(t, expected, repeated)
+	})
 }
 
 func BenchmarkRepeat(b *testing.B) {

@@ -1,6 +1,9 @@
 package sum
 
-import "testing"
+import (
+	"testing"
+	"reflect"
+)
 
 func TestSum(t *testing.T) {
 	assertIsEqual := func(t *testing.T, got int, want int, numbers []int) {
@@ -28,11 +31,9 @@ func TestSumAll(t *testing.T) {
 
 		got := SumAll(slice1, slice2)
 		want := []int {3, 9}
-
-		for i, number := range want {
-			if number != got[i] {
-				t.Errorf("Wanted %d, Got %d, Supplied %v...", got, want, slice1)
-			}
+		
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("Wanted %d, Got %d, Supplied %v...", got, want, slice1)
 		}
 	})
 }

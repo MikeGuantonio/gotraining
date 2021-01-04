@@ -20,3 +20,19 @@ func TestSum(t *testing.T) {
 	})
 	
 }
+
+func TestSumAll(t *testing.T) {
+	t.Run("Should sum each slice and place the result in a single list", func(t *testing.T){
+		slice1 := []int {1, 2}
+		slice2 := []int {0, 9}
+
+		got := SumAll(slice1, slice2)
+		want := []int {3, 9}
+
+		for i, number := range want {
+			if number != got[i] {
+				t.Errorf("Wanted %d, Got %d, Supplied %v...", got, want, slice1)
+			}
+		}
+	})
+}

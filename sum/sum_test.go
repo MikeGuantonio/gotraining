@@ -37,3 +37,17 @@ func TestSumAll(t *testing.T) {
 		}
 	})
 }
+
+func TestSumAllTails(t *testing.T) {
+	t.Run("Should sum all tail values in an array", func(t *testing.T){
+		slice1 := []int {1, 2}		
+		slice2 := []int {2, 9}
+
+		got := SumAllTails(slice1, slice2)
+		want := []int {2, 9}
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("Wanted %v Got %v", got, want)
+		}
+	})
+}

@@ -10,14 +10,6 @@ func TestSum(t *testing.T) {
 		}
 	}
 
-	t.Run("Sum a list of integers", func(t *testing.T){
-		numbers := []int{1, 2, 3, 4, 5}
-
-		got := Sum(numbers)
-		want := 15
-		assertIsEqual(t, got, want, numbers)
-	})
-
 	t.Run("Should sum a collection of any size", func(t *testing.T){
 		numbers := []int{1,2,3}
 

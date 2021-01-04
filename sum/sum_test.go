@@ -50,4 +50,16 @@ func TestSumAllTails(t *testing.T) {
 			t.Errorf("Wanted %v Got %v", got, want)
 		}
 	})
+
+	t.Run("Should sum all tails for slices of variable length", func(t *testing.T){
+		slice1 := []int {1, 2, 4}
+		slice2 := []int {5, 8, 10, 12}
+
+		got := SumAllTails(slice1, slice2)
+		want := []int {6, 30}
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("Got %v Want %v", got, want)
+		}
+	})
 }

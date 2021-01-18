@@ -11,6 +11,8 @@ func (b Bitcoin) String() string {
 	return fmt.Sprintf("%d BTC", b)
 }
 
+var ErrInsufficentFunds = errors.New("Insufficent Funds")
+
 type Wallet struct {
 	balance Bitcoin
 }
@@ -26,7 +28,7 @@ func (w *Wallet) Deposit(amount Bitcoin) {
 
 func (w *Wallet) Widthdraw(amount Bitcoin) error {
 	if amount > w.balance {
-		return errors.New("Insufficent Funds")
+		return ErrInsufficentFunds
 	}
 	w.balance -= amount
 	return nil

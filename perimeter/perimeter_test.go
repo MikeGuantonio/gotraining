@@ -3,7 +3,8 @@ package perimeter
 import "testing"
 
 func TestPerimeter(t *testing.T) {
-	got := Perimeter(10.0, 10.0)
+	rect := Rectangle{10.0, 10.0}
+	got := Perimeter(rect)
 	want := 40.0
 
 	if want != got {

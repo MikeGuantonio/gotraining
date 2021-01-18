@@ -27,14 +27,24 @@ func TestWallet(t *testing.T) {
 		wallet := Wallet{}
 
 		wallet.Deposit(Bitcoin(20))
+		wallet.Widthdraw(Bitcoin(10))
 
-		got := wallet.Widthdraw(Bitcoin(10))
-		want := Bitcoin(10)
-
-		if got != want {
-			t.Errorf("Wanted %s, got %s", want, got)
-		}
 		assertBalance(t, wallet, Bitcoin(10))
+	})
+
+	t.Run("Insufficent funds", func(t *testing.T) {
+		startingBalance := Bitcoin(20)
+		wallet := Wallet{
+			balance: startingBalance,
+		}
+
+		wallet.Deposit(Bitcoin(20))
+
+		err := wallet.Widthdraw(Bitcoin(100))
+
+		if err == nil {
+			t.Errorf("Wanted an error but no error present")
+		}
 	})
 
 

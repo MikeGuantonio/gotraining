@@ -6,6 +6,10 @@ import (
 
 const PI = 3.14
 
+type Shape interface {
+	Area() float64
+}
+
 type Rectangle struct {
 	Width float64
 	Height float64

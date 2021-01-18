@@ -44,9 +44,9 @@ func TestWallet(t *testing.T) {
 			balance: startingBalance,
 		}
 
-		wallet.Deposit(Bitcoin(20))
-
 		err := wallet.Widthdraw(Bitcoin(100))
+
+		assertBalance(t, wallet, startingBalance)
 		assertError(t, err)
 	})
 }

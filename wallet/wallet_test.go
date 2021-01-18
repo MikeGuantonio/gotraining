@@ -17,7 +17,7 @@ func TestWallet(t *testing.T) {
 
 	assertError := func(t *testing.T, got error, want string) {
 		if got == nil {
-			t.Errorf("Wanted an error but no error present")
+			t.Fatal("Wanted an error but no error present")
 		}
 		
 		if got.Error() != want {

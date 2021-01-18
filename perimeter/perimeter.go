@@ -1,5 +1,9 @@
 package perimeter
 
+import (
+	"math"
+)
+
 const PI = 3.14
 
 type Rectangle struct {
@@ -7,18 +11,18 @@ type Rectangle struct {
 	Height float64
 }
 
+func(r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
 type Circle struct {
 	Radius float64
 }
 
+func (c Circle) Area() float64 {
+	return math.Pi * c.Radius * c.Radius
+}
+
 func Perimeter(rect Rectangle) float64{
 	return 2 * (rect.Width + rect.Height)
-}
-
-func Area(rect Rectangle) float64 {
-	return rect.Width * rect.Height
-}
-
-func Area(circle Circle) float64 {
-	return circle.Radius * PI
 }

@@ -23,8 +23,8 @@ func TestSearch(t *testing.T) {
 			t.Fatal("Should recieve an error")
 		}
 
-		want := "could not find the word you were looking for"
-		assertStrings(t, err.Error(), want)
+		want := ErrNotFound
+		assertStrings(t, err.Error(), want.Error())
 	})
 	
 }

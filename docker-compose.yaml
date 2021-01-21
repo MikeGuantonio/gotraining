@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  golang-train:
+    container_name: golang-train
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment: 
+      - GO111MODULE=on
+    volumes:
+      - ./:/go/app

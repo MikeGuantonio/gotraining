@@ -42,3 +42,11 @@ func (d Dictionary) Add(term string, definition string) error {
 	}
 	return nil
 }
+
+func (d Dictionary) Update(term string, definition string) {
+	_, err := d.Search(term)
+
+	if err != ErrNotFound {
+		d[term] = definition
+	}
+}

@@ -4,8 +4,10 @@ import "errors"
 
 type Dictionary map[string]string
 
-var ErrNotFound = errors.New("could not find the word you were looking for")
-var ErrWordExists = errors.New("word already present. not updated")
+var (
+	ErrNotFound = errors.New("could not find the word you were looking for")
+	ErrWordExists = errors.New("word already present. not updated")
+)
 
 func (d Dictionary) Search(term string) (string, error) {
 	definition, found := d[term]

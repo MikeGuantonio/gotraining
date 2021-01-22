@@ -18,15 +18,17 @@ func TestSearch(t *testing.T) {
 
 		_, err := dictionary.Search("west")
 		
-
-		if err == nil {
-			t.Fatal("Should recieve an error")
-		}
-
-		want := ErrNotFound
-		assertStrings(t, err.Error(), want.Error())
+		assertError(t, err)
 	})
 	
+}
+
+func assertError(t *testing.T, got error) {
+	t.Helper()
+
+	if got != ErrNotFound {
+		t.Errorf("Want %q, Got %q", ErrNotFound, got)
+	}
 }
 
 func assertStrings(t *testing.T, got string, want string) {

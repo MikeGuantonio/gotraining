@@ -18,26 +18,41 @@ func TestSearch(t *testing.T) {
 
 		_, err := dictionary.Search("west")
 		
-		assertError(t, err)
+		assertError(t, ErrNotFound, err)
 	})
 	
 }
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-	definition := "Oftentimes a bar"
-	word := "foo"
 
-	dictionary.Add(word, definition)
+	t.Run("Should add a term to a dictionary", func(t *testing.T){
+		dictionary := Dictionary{}
+		definition := "Oftentimes a bar"
+		word := "foo"
 
-	assertDefinition(t, dictionary, word, definition)
+		dictionary.Add(word, definition)
+
+		assertDefinition(t, dictionary, word, definition)
+	})
+
+	t.Run("Should not overwrite a term already in dictionary", func(t *testing.T){
+		word := "my word"
+		definition := "Not your word"
+		dictionary := Dictionary{word: definition}
+		
+		err := dictionary.Add(word, definition)
+
+		assertError(t, ErrWordExists, err)
+		assertDefinition(t, dictionary, word, definition)
+	})
+	
 }
 
-func assertError(t *testing.T, got error) {
+func assertError(t *testing.T, want error, got error) {
 	t.Helper()
 
-	if got != ErrNotFound {
-		t.Errorf("Want %q, Got %q", ErrNotFound, got)
+	if got != want {
+		t.Errorf("Want %q, Got %q", want, got)
 	}
 }
 

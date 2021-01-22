@@ -47,10 +47,14 @@ func (d Dictionary) Add(term string, definition string) error {
 func (d Dictionary) Update(term string, definition string) error {
 	_, err := d.Search(term)
 
-	if err != ErrNotFound {
-		d[term] = definition
-	} else {
+	switch err {
+	case ErrNotFound:
 		return ErrDoesNotExist
+	case nil:
+		d[term] = definition
+	default:
+		return err
 	}
+
 	return nil
 }

@@ -58,3 +58,11 @@ func (d Dictionary) Update(term string, definition string) error {
 
 	return nil
 }
+
+func (d Dictionary) Delete(term string) {
+	_, err := d.Search(term)
+
+	if err == nil {
+		delete(d, term)
+	}
+}

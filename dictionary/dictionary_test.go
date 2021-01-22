@@ -4,7 +4,7 @@ import "testing"
 
 func TestSearch(t *testing.T) {
 
-	t.Run("Should find a word in the dictionary" ,func(t *testing.T){
+	t.Run("Should find a word in the dictionary", func(t *testing.T) {
 		dictionary := Dictionary{"test": "this is only a test"}
 
 		got, _ := dictionary.Search("test")
@@ -13,19 +13,19 @@ func TestSearch(t *testing.T) {
 		assertStrings(t, got, want)
 	})
 
-	t.Run("Should return an message to the user if no term is found", func(t *testing.T){
+	t.Run("Should return an message to the user if no term is found", func(t *testing.T) {
 		dictionary := Dictionary{"test": "this is only a test"}
 
 		_, err := dictionary.Search("west")
-		
+
 		assertError(t, ErrNotFound, err)
 	})
-	
+
 }
 
 func TestAdd(t *testing.T) {
 
-	t.Run("Should add a term to a dictionary", func(t *testing.T){
+	t.Run("Should add a term to a dictionary", func(t *testing.T) {
 		dictionary := Dictionary{}
 		definition := "Oftentimes a bar"
 		word := "foo"
@@ -35,17 +35,17 @@ func TestAdd(t *testing.T) {
 		assertDefinition(t, dictionary, word, definition)
 	})
 
-	t.Run("Should not overwrite a term already in dictionary", func(t *testing.T){
+	t.Run("Should not overwrite a term already in dictionary", func(t *testing.T) {
 		word := "my word"
 		definition := "Not your word"
 		dictionary := Dictionary{word: definition}
-		
+
 		err := dictionary.Add(word, definition)
 
 		assertError(t, ErrWordExists, err)
 		assertDefinition(t, dictionary, word, definition)
 	})
-	
+
 }
 
 func assertError(t *testing.T, want error, got error) {
@@ -66,7 +66,6 @@ func assertStrings(t *testing.T, got string, want string) {
 func assertDefinition(t *testing.T, dict Dictionary, word string, definition string) {
 	t.Helper()
 	got, err := dict.Search(word)
-	
 
 	if err != nil {
 		t.Errorf("Wanted to find a word but no word found")

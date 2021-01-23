@@ -1,8 +1,8 @@
-package main 
+package main
 
 import (
-	"testing"
 	"bytes"
+	"testing"
 )
 
 func TestCountdown(t *testing.T) {
@@ -16,7 +16,7 @@ func TestCountdown(t *testing.T) {
 Go`
 	got := buffer.String()
 
-	if (want != got) {
+	if want != got {
 		t.Errorf("Wanted %s, Got %s", want, got)
 	}
 }

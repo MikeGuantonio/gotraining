@@ -4,19 +4,34 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 )
 
 const finalCountdown = "Go"
 
-func Countdown(writer io.Writer) {
+type Sleeper interface {
+	Sleep()
+}
+
+type DefaultSleeper struct {}
+
+func (d DefaultSleeper) Sleep(){
+	time.Sleep(1 * time.Second)
+}
+
+func Countdown(writer io.Writer, sleeper Sleeper) {
 	countdownNumbers := []int{3, 2, 1}
 
 	for _, number := range countdownNumbers {
 		fmt.Fprintf(writer, "%d\n", number)
+		sleeper.Sleep()
 	}
-	fmt.Fprintf(writer, finalCountdown)
+
+	sleeper.Sleep()
+	fmt.Fprintf(writer, "%s\n", finalCountdown)
 }
 
 func main() {
-	Countdown(os.Stdout)
+	sleeper := &DefaultSleeper{}
+	Countdown(os.Stdout, sleeper)
 }

@@ -10,7 +10,7 @@ func TestCountdown(t *testing.T) {
 
 	Countdown(buffer)
 
-	want := "3"
+	want := "3 2 1 Go"
 	got := buffer.String()
 
 	if (want != got) {

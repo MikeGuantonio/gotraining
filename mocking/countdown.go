@@ -6,11 +6,15 @@ import (
 	"os"
 )
 
+const finalCountdown = "Go"
+
 func Countdown(writer io.Writer) {
-	for _, number := range []int{3, 2, 1} {
+	countdownNumbers := []int{3, 2, 1}
+
+	for _, number := range countdownNumbers {
 		fmt.Fprintf(writer, "%d\n", number)
 	}
-	fmt.Fprintf(writer, "Go")
+	fmt.Fprintf(writer, finalCountdown)
 }
 
 func main() {

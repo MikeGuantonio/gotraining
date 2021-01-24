@@ -13,9 +13,9 @@ type Sleeper interface {
 	Sleep()
 }
 
-type DefaultSleeper struct {}
+type DefaultSleeper struct{}
 
-func (d DefaultSleeper) Sleep(){
+func (d DefaultSleeper) Sleep() {
 	time.Sleep(1 * time.Second)
 }
 
@@ -23,8 +23,8 @@ func Countdown(writer io.Writer, sleeper Sleeper) {
 	countdownNumbers := []int{3, 2, 1}
 
 	for _, number := range countdownNumbers {
-		fmt.Fprintf(writer, "%d\n", number)
 		sleeper.Sleep()
+		fmt.Fprintf(writer, "%d\n", number)
 	}
 
 	sleeper.Sleep()

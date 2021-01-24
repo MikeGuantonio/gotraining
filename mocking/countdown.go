@@ -9,6 +9,8 @@ import (
 
 const finalCountdown = "Go"
 
+
+
 type Sleeper interface {
 	Sleep()
 }
@@ -17,6 +19,15 @@ type DefaultSleeper struct{}
 
 func (d DefaultSleeper) Sleep() {
 	time.Sleep(1 * time.Second)
+}
+
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep func(time time.Duration)
+}
+
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
 }
 
 func Countdown(writer io.Writer, sleeper Sleeper) {
@@ -32,6 +43,9 @@ func Countdown(writer io.Writer, sleeper Sleeper) {
 }
 
 func main() {
-	sleeper := &DefaultSleeper{}
-	Countdown(os.Stdout, sleeper)
+	cSleeper := &ConfigurableSleeper{
+		duration: 1 * time.Second,
+		sleep: time.Sleep,
+	}
+	Countdown(os.Stdout, cSleeper)
 }

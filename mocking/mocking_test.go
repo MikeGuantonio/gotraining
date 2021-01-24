@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"reflect"
 	"testing"
 )
@@ -22,6 +23,24 @@ func (c *CountdownOperationsSpy) Write(bytes []byte) (n int, err error) {
 }
 
 func TestCountdown(t *testing.T) {
+	t.Run("Should print output for each step", func(t *testing.T) {
+		spy := &CountdownOperationsSpy{}
+		buffer := &bytes.Buffer{}
+
+		Countdown(buffer, spy)
+
+		want := `3
+2
+1
+Go
+`
+		got := buffer.String()
+
+		if want != got {
+			t.Errorf("Wanted %s, Got %s", want, got)
+		}
+	})
+
 	t.Run("Should Sleep Before Every Print", func(t *testing.T) {
 		spy := &CountdownOperationsSpy{}
 

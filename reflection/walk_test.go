@@ -52,6 +52,14 @@ func TestWalk(t *testing.T) {
 			},
 			[]string{"Nick", "Monaca"},
 		},
+		{
+			"Struct that is a pointer", 
+			&Person {
+				"Nick",
+				Profile{33, "Monaca"}, 
+			},
+			[]string{"Nick", "Monaca"},
+		},
 	}
 
 	for _, test := range cases {

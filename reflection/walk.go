@@ -14,18 +14,22 @@ func getValue(input interface{}) reflect.Value {
 func walk(x interface{}, fun func(input string)) {
 	val := getValue(x)
 
+	numberOfValues := 0
+	var getField func (int) reflect.Value
+
 	switch val.Kind() {
 	case reflect.String:
 		fun(val.String())
 	case reflect.Slice:
-		for i := 0; i < val.Len(); i++ {
-			walk(val.Index(i).Interface(), fun)
-		}
+		numberOfValues = val.Len()
+		getField = val.Index
 	case reflect.Struct:
-		for i := 0; i < val.NumField(); i++ {
-			field := val.Field(i)
-			walk(field.Interface(), fun)
-		}
+		numberOfValues = val.NumField()
+		getField = val.Field
+	}
+
+	for i := 0; i < numberOfValues; i++ {
+		walk(getField(i).Interface(), fun)
 	}
 	
 }

@@ -14,6 +14,13 @@ func getValue(input interface{}) reflect.Value {
 func walk(x interface{}, fun func(input string)) {
 	val := getValue(x)
 
+	if val.Kind() == reflect.Slice {
+		for i := 0; i < val.Len(); i++ {
+			walk(val.Index(i).Interface(), fun)
+		}
+		return
+	}
+
 	for i := 0; i < val.NumField(); i++ {
 		field := val.Field(i)
 

@@ -7,7 +7,7 @@ func getValue(input interface{}) reflect.Value {
 
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
-	}
+	} 
 	return val
 }
 
@@ -32,6 +32,10 @@ func walk(x interface{}, fun func(input string)) {
 	case reflect.Map:
 		for _, key := range val.MapKeys() {
 			walk(val.MapIndex(key).Interface(), fun)
+		}
+	case reflect.Chan:
+		for v, ok := val.Recv(); ok; v, ok = val.Recv() {
+			walk(v.Interface(), fun)
 		}
 	}
 }

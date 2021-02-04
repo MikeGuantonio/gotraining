@@ -15,6 +15,19 @@ type Profile struct{
 	City string
 }
 
+func assertContains(t *testing.T, got []string, input string){
+	t.Helper()
+	contains := false
+	for _, data := range got {
+		if data == input {
+			contains = true
+		}
+	}
+	if !contains {
+		t.Errorf("Could not find all keys in return")
+	}	
+}
+
 func TestWalk(t *testing.T) {
 	cases := []struct {
 		Name string
@@ -68,14 +81,6 @@ func TestWalk(t *testing.T) {
 			}, 
 			[]string{"Monaca", "Center"},
 		},
-		{
-			"Walking over a map", 
-			map[string]string {
-				"Foo": "bar",
-				"Bar": "foo",
-			}, 
-			[]string{"bar", "foo"},
-		},
 	}
 
 	for _, test := range cases {
@@ -91,4 +96,19 @@ func TestWalk(t *testing.T) {
             }
 		})
 	}
+
+	t.Run("Testing Maps", func(t *testing.T){
+		input := map[string]string {
+			"Foo": "bar",
+			"Bar": "foo",
+		}
+		var got []string
+
+		walk(input, func(input string){
+			got = append(got, input)
+		})
+
+		assertContains(t, got, "bar")
+		assertContains(t, got, "foo")
+	})
 }

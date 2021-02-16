@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-func assertCount(t *testing.T, got Counter, want int){
+func assertCount(t *testing.T, got *Counter, want int){
 	t.Helper()
 	if (got.Value() != want){
 		t.Errorf("Got %d, Want %d", got, want)
@@ -20,7 +20,7 @@ func TestCounter(t *testing.T){
 		counter.Inc()
 		counter.Inc()
 
-		assertCount(t, counter, 3)
+		assertCount(t, &counter, 3)
 	})
 
 	t.Run("should run safely concurrently", func(t *testing.T){
@@ -38,6 +38,6 @@ func TestCounter(t *testing.T){
 		}
 		wg.Wait()
 
-		assertCount(t, counter, wantedCount)
+		assertCount(t, &counter, wantedCount)
 	})
 }

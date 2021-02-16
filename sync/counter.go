@@ -18,5 +18,5 @@ func(c *Counter)Inc() {
 }
 
 func(c *Counter)Value() int {
-	return c.total
+	return c.total 
 }

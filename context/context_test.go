@@ -1,30 +1,30 @@
 package main
 
 import (
-	"testing"
-	"net/http/httptest"
-	"net/http"
-	"time"
 	"context"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+	"time"
 )
 
 type SpyStore struct {
-	response string
+	response  string
 	cancelled bool
 }
 
-func(ss *SpyStore) Fetch() string {
+func (ss *SpyStore) Fetch() string {
 	time.Sleep(100 * time.Millisecond)
 	return ss.response
 }
 
-func(ss *SpyStore) Cancel() {
+func (ss *SpyStore) Cancel() {
 	ss.cancelled = true
 }
 
 func TestServer(t *testing.T) {
-	t.Run("Should send data from server", func(t *testing.T){
-		data := "hello halavanja"
+	t.Run("Should send data from server", func(t *testing.T) {
+		data := "hello halavanjaa"
 		store := SpyStore{response: data}
 		server := Server(&store)
 
@@ -42,19 +42,18 @@ func TestServer(t *testing.T) {
 		}
 	})
 
-	t.Run("Should cancel work for long running process", func(t *testing.T){
+	t.Run("Should cancel work for long running process", func(t *testing.T) {
 		data := "hello halavanja"
 		store := SpyStore{response: data}
 		server := Server(&store)
-
 
 		request := httptest.NewRequest(http.MethodGet, "/", nil)
 
 		// Create a context that will cancel after a time
 		cancellingCtx, cancel := context.WithCancel(request.Context())
-		time.AfterFunc(5 * time.Millisecond, cancel)
+		time.AfterFunc(5*time.Millisecond, cancel)
 		request = request.WithContext(cancellingCtx)
-		
+
 		response := httptest.NewRecorder()
 
 		server.ServeHTTP(response, request)
@@ -63,5 +62,5 @@ func TestServer(t *testing.T) {
 			t.Errorf("Request should have been cancelled due to timeout")
 		}
 	})
-	
+
 }
